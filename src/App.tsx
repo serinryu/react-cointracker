@@ -54,6 +54,10 @@ const GlobalStyle = createGlobalStyle`
     background-color:${(props) => props.theme.bgColor};
     color:${(props) => props.theme.accentColor}
   }
+  a{
+    color: inherit;
+    text-decoration: none;
+  }
 `;
 
 function App() {
