@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import { Routes, Route, useLocation, useParams } from "react-router";
 import styled from "styled-components";
+import Chart from "./Chart";
+import Price from "./Price";
 
 const Title = styled.h1`
   font-size: 48px;
@@ -36,7 +38,7 @@ const OverviewItem = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  span:first-child {
+  span:first-child { 
     font-size: 10px;
     font-weight: 400;
     text-transform: uppercase;
@@ -172,13 +174,10 @@ function Coin() {
               <span>{priceInfo?.max_supply}</span>
             </OverviewItem>
           </Overview>
+
           <Routes>
-            <Route path={`/${coinId}/price`}>
-
-            </Route>
-            <Route path={`/${coinId}/chart`}>
-
-            </Route>
+            <Route path="price" element={<Price/>} />
+            <Route path="chart" element={<Chart/>} />
           </Routes>
         </>
       )}
