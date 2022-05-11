@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Routes, Route, useLocation, useParams } from "react-router";
+import { Routes, Route, useLocation, useParams, useMatch } from "react-router";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import Chart from "./Chart";
@@ -57,7 +57,7 @@ const Tabs = styled.div`
   gap: 10px;
 `;
 
-const Tab = styled.div`
+const Tab = styled.span<{ isActive:boolean }>`
 text-align: center;
 text-transform: uppercase;
 font-size: 12px;
@@ -68,6 +68,8 @@ border-radius: 10px;
 a {
   display: block;
 }
+color: ${(props) =>
+  props.isActive ? props.theme.accentColor : props.theme.textColor};
 `;
 
 interface RouteParams {
@@ -138,12 +140,15 @@ interface PriceData {
 
 
 function Coin() {
-  const [loading, setLoading] = useState(true); // 타입 지정시: useState﹤{loading: boolean}＞({loading:true})
+  const [loading, setLoading] = useState(true); 
   const [info, setInfo] = useState<InfoData>();
   const [priceInfo, setPriceInfo] = useState<PriceData>();
 
   const { coinId } = useParams() as unknown as RouteParams;
   const { state } = useLocation() as RouteState;
+
+  const priceMatch = useMatch("/:coinId/price");
+  const chartMatch = useMatch("/:coinId/chart");
 
   useEffect(() => {
     (async () => {
@@ -197,8 +202,12 @@ function Coin() {
           </Overview>
 
           <Tabs>
-            <Tab><Link to={`/${coinId}/price`}>Price</Link></Tab>
-            <Tab><Link to={`/${coinId}/chart`}>Chart</Link></Tab>
+            <Tab isActive={priceMatch !== null}>
+              <Link to={`/${coinId}/price`}>Price</Link>
+            </Tab>
+            <Tab isActive={chartMatch !== null}>
+              <Link to={`/${coinId}/chart`}>Chart</Link>
+            </Tab>
           </Tabs>
 
           <Routes>
