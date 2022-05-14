@@ -1,11 +1,9 @@
-import { useEffect, useState } from "react";
-import { Routes, Route, useLocation, useParams, useMatch } from "react-router";
+//import { useEffect, useState } from "react";
+import { useLocation, useParams, useMatch, Outlet } from "react-router";
 import { useQuery } from "react-query";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { fetchCoinInfo, fetchCoinTickers } from "../api";
-import Chart from "./Chart";
-import Price from "./Price";
 
 const Title = styled.h1`
   font-size: 48px;
@@ -222,10 +220,7 @@ function Coin() {
             </Tab>
           </Tabs>
 
-          <Routes>
-            <Route path="price" element={<Price/>} />
-            <Route path="chart" element={<Chart/>} />
-          </Routes>
+          <Outlet context={{ coinId }} />
         </>
       )}
     </Container>

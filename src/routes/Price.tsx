@@ -1,5 +1,12 @@
+import { useOutletContext } from 'react-router-dom';
+
+interface PriceProps {
+  coinId: string;
+}
+
 function Price() {
-  return <h1>Price</h1>;
+  const {coinId} = useOutletContext<PriceProps>();
+  return <h1>{coinId}</h1>;
 }
 
 export default Price;
