@@ -16,7 +16,10 @@ const Header = styled.header`
   align-items: center;
 `;
 
-const CoinsList = styled.ul``;
+const CoinsList = styled.ul`
+  max-width: 480px;
+  margin: 0 auto;
+`;
 
 const Coin = styled.li`
   background-color: white;
@@ -24,9 +27,16 @@ const Coin = styled.li`
   border-radius: 15px;
   margin-bottom: 10px;
   a {
+    color: rgb(0,0,0,0.5);
     transition: color 0.2s ease-in;
     padding: 20px;
     display: block;
+    height: 35px;
+  }
+  span {
+    position: relative;
+    bottom: 8px;
+    margin: 5px;
   }
   &:hover {
     a {
@@ -94,7 +104,7 @@ function Coins() {
                 <Img
                   src={`https://coinicons-api.vercel.app/api/icon/${coin.symbol.toLowerCase()}`}
                 />
-                {coin.name} &rarr;
+                <span>{coin.name} &rarr;</span>
               </Link>
             </Coin>
           ))}

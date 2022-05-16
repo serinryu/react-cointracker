@@ -1,6 +1,7 @@
 import { createGlobalStyle } from "styled-components";
 import Router from "./Router";
 import { ReactQueryDevtools } from "react-query/devtools";
+import { useMediaQuery } from 'react-responsive'
 
 const GlobalStyle = createGlobalStyle`
   html, body, div, span, applet, object, iframe,
@@ -62,10 +63,12 @@ const GlobalStyle = createGlobalStyle`
 `;
 
 function App() {
+  const isTabletOrMobile = useMediaQuery({ query: '(max-width: 820px)' })
   return (
     <>  
       <GlobalStyle />
-      <Router />
+      { !isTabletOrMobile && <div> mobile phone only </div>}
+      { isTabletOrMobile && <Router /> }
       <ReactQueryDevtools initialIsOpen={true} />
     </>
   );
