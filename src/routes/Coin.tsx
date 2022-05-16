@@ -73,6 +73,15 @@ color: ${(props) =>
   props.isActive ? props.theme.accentColor : props.theme.textColor};
 `;
 
+const Back = styled.span`
+  position: absolute;
+  top: 30px;
+  color: ${(props) => props.theme.textColor};
+  &: hover {
+    color: ${(props) => props.theme.accentColor};
+  }
+`;
+
 interface RouteParams {
   coinId: string;
 }
@@ -154,12 +163,12 @@ function Coin() {
   const { isLoading: infoLoading, data: infoData } = useQuery<InfoData>(
     ["info", coinId],
     () => fetchCoinInfo(coinId),
-    { refetchInterval: 5000, }
+    //{ refetchInterval: 5000, }
   );
   const { isLoading: tickersLoading, data: tickersData } = useQuery<PriceData>(
     ["tickers", coinId],
     () => fetchCoinTickers(coinId),
-    { refetchInterval: 5000, }
+    //{ refetchInterval: 5000, }
   );
   const loading = infoLoading || tickersLoading;
 
@@ -186,6 +195,9 @@ function Coin() {
           {state?.name ? state.name : loading ? "Loading..." : infoData?.name}
         </title>
       </Helmet>
+      <Back>
+        <Link to={`/`}> &lt; Back</Link>
+      </Back>
       <Header>
         <Title> {state?.name ? state.name : loading ? "Loading..." : infoData?.name } </Title>
       </Header>

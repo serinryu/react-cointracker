@@ -21,11 +21,13 @@ interface IHistorical {
 function Chart() {
   const { coinId } = useOutletContext<ChartProps>();
   const { isLoading, data } = useQuery<IHistorical[]>(["ohlcv", coinId], () => fetchCoinHistory(coinId));
-  return (
+
+return (
     <>
        {isLoading ? (
         "Loading chart..."
       ) : (
+        <>
         <ApexChart
           type="line"
           series={[
@@ -38,6 +40,10 @@ function Chart() {
           options={{
             theme: {
               mode: "dark",
+            },
+            title: {
+              text: 'Line Chart',
+              align: 'left'
             },
             chart: {
               height: 300,
@@ -73,7 +79,52 @@ function Chart() {
               },
             },
           }}
-      />
+        />
+
+        <ApexChart
+          type="candlestick"
+          height={350} 
+          series={[
+            {
+            data: data?.map((price) => {
+              return{
+              x: price.time_close,
+              y: [price.open.toFixed(3), price.high.toFixed(3), price.low.toFixed(3), price.close.toFixed(3)]
+              }
+            })
+            },
+            ] as any}
+          options= {{
+            chart: {
+              type: 'candlestick',
+              height: 350,
+              background: "transparent",
+            },
+            title: {
+              text: 'CandleStick Chart',
+              align: 'left'
+            },
+            xaxis: {
+              type: 'datetime'
+            },
+            yaxis: {
+              tooltip: {
+                enabled: true
+              },
+              decimalsInFloat: 0,
+            },
+            theme: {
+              mode: "dark",
+            },
+            colors: ["#0fbcf9"],
+          }}
+        />
+
+        
+
+      </>
+
+
     )} 
     </>
   );
