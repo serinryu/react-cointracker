@@ -35,7 +35,7 @@ const Coin = styled.li`
   }
   span {
     position: relative;
-    bottom: 8px;
+    bottom: 10px;
     margin: 5px;
   }
   &:hover {
@@ -86,10 +86,10 @@ function Coins() {
   return (
     <Container>
       <Helmet>
-        <title>코인</title>
+        <title>CoinTraker</title>
       </Helmet>
       <Header>
-        <Title>코인</Title>
+        <Title>CoinTraker</Title>
       </Header>
       {isLoading ? (
         <Loader> Loading.. </Loader>

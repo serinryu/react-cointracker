@@ -3,6 +3,7 @@ import { useQuery } from "react-query";
 import { fetchCoinHistory } from "../api";
 import ApexChart from "react-apexcharts";
 
+
 interface ChartProps {
   coinId: string;
 }
@@ -18,10 +19,10 @@ interface IHistorical {
   market_cap: number;
 }
 
-function Chart() {
+function Chart(props:any) {
   const { coinId } = useOutletContext<ChartProps>();
   const { isLoading, data } = useQuery<IHistorical[]>(["ohlcv", coinId], () => fetchCoinHistory(coinId));
-
+  const chartMode = props.mode;
 return (
     <>
        {isLoading ? (
@@ -39,7 +40,7 @@ return (
           ]}
           options={{
             theme: {
-              mode: "dark",
+              mode: chartMode,
             },
             title: {
               text: 'Line Chart',
@@ -114,7 +115,7 @@ return (
               decimalsInFloat: 0,
             },
             theme: {
-              mode: "dark",
+              mode: chartMode,
             },
             colors: ["#0fbcf9"],
           }}

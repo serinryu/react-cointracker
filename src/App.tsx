@@ -2,6 +2,11 @@ import { createGlobalStyle } from "styled-components";
 import Router from "./Router";
 import { ReactQueryDevtools } from "react-query/devtools";
 import { useMediaQuery } from 'react-responsive'
+import Button from "./components/Button";
+import Desktop from "./components/Desktop";
+import { lighttheme, darktheme } from "./theme";
+import { ThemeProvider } from "styled-components";
+import React, {useState} from 'react';
 
 const GlobalStyle = createGlobalStyle`
   html, body, div, span, applet, object, iframe,
@@ -64,13 +69,20 @@ const GlobalStyle = createGlobalStyle`
 
 function App() {
   const isTabletOrMobile = useMediaQuery({ query: '(max-width: 820px)' })
+  const [themeMode, setThemeMode] = useState<string>('dark'); // 테마 모드 세팅
+  const theme = themeMode === 'dark' ? darktheme : lighttheme; 
+  const toggleTheme = () => setThemeMode(themeMode === 'dark' ? 'light' : 'dark'); // 테마 변경하기 이벤트
+
   return (
+    <ThemeProvider theme={theme}> 
     <>  
       <GlobalStyle />
-      { !isTabletOrMobile && <div> mobile phone only </div>}
-      { isTabletOrMobile && <Router /> }
+      { !isTabletOrMobile && <Desktop/>}
+      { isTabletOrMobile && <Button click={toggleTheme} mode={themeMode}/>}
+      { isTabletOrMobile && <Router mode={themeMode}/> }
       <ReactQueryDevtools initialIsOpen={true} />
     </>
+    </ThemeProvider>
   );
 }
 
