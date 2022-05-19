@@ -1,5 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
+import { useRecoilValue, useSetRecoilState } from "recoil";
+import { isDarkAtom } from "../atoms";
 
 const ButtonBox = styled.button`
   position: fixed;
@@ -22,15 +24,13 @@ const ButtonBox = styled.button`
   }
 `;
 
-interface IButtonProps {
-  click: () => void; //인자로 아무것도 받지 않고, 아무것도 return 하지 않는다.
-  mode: string;
-}
-
-function Button({ click, mode}: IButtonProps) {
+function Button() {
+  const setDarkAtom = useSetRecoilState(isDarkAtom);
+  const toggleDarkAtom = () => setDarkAtom((prev) => !prev); // 테마 변경하기 이벤트
+    const isDark = useRecoilValue(isDarkAtom);
     return (
-        <ButtonBox onClick={click}>
-            <span>{mode === 'dark' ? '🌚' : '🌝'}</span>
+        <ButtonBox onClick={toggleDarkAtom}>
+            <span>{isDark ? '🌚' : '🌝'}</span>
         </ButtonBox>
     );
 };

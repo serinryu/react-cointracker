@@ -7,6 +7,8 @@ import Desktop from "./components/Desktop";
 import { lighttheme, darktheme } from "./theme";
 import { ThemeProvider } from "styled-components";
 import React, {useState} from 'react';
+import { isDarkAtom } from "./atoms";
+import { useRecoilValue } from "recoil";
 
 const GlobalStyle = createGlobalStyle`
   html, body, div, span, applet, object, iframe,
@@ -69,20 +71,17 @@ const GlobalStyle = createGlobalStyle`
 
 function App() {
   const isTabletOrMobile = useMediaQuery({ query: '(max-width: 820px)' })
-  const [themeMode, setThemeMode] = useState<string>('dark'); // 테마 모드 세팅
-  const theme = themeMode === 'dark' ? darktheme : lighttheme; 
-  const toggleTheme = () => setThemeMode(themeMode === 'dark' ? 'light' : 'dark'); // 테마 변경하기 이벤트
-
+  const isDark = useRecoilValue(isDarkAtom);
   return (
-    <ThemeProvider theme={theme}> 
     <>  
+    <ThemeProvider theme={isDark ? darktheme : lighttheme}> 
       <GlobalStyle />
       { !isTabletOrMobile && <Desktop/>}
-      { isTabletOrMobile && <Button click={toggleTheme} mode={themeMode}/>}
-      { isTabletOrMobile && <Router mode={themeMode}/> }
+      { isTabletOrMobile && <Button/>}
+      { isTabletOrMobile && <Router/> }
       <ReactQueryDevtools initialIsOpen={true} />
-    </>
     </ThemeProvider>
+    </>
   );
 }
 
