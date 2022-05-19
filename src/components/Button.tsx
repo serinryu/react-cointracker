@@ -22,10 +22,15 @@ const ButtonBox = styled.button`
   }
 `;
 
-function Button(props:any) {
+interface IButtonProps {
+  click: () => void; //인자로 아무것도 받지 않고, 아무것도 return 하지 않는다.
+  mode: string;
+}
+
+function Button({ click, mode}: IButtonProps) {
     return (
-        <ButtonBox onClick={props.click}>
-            <span>{props.mode === 'dark' ? '🌚' : '🌝'}</span>
+        <ButtonBox onClick={click}>
+            <span>{mode === 'dark' ? '🌚' : '🌝'}</span>
         </ButtonBox>
     );
 };

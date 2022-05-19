@@ -19,10 +19,10 @@ interface IHistorical {
   market_cap: number;
 }
 
-function Chart(props:any) {
+function Chart({mode}:any) {
   const { coinId } = useOutletContext<ChartProps>();
   const { isLoading, data } = useQuery<IHistorical[]>(["ohlcv", coinId], () => fetchCoinHistory(coinId));
-  const chartMode = props.mode;
+  const chartMode = mode;
 return (
     <>
        {isLoading ? (
