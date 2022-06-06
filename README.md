@@ -6,6 +6,8 @@
     <a href="https://serinryu.github.io/react-cointracker/">Published Webpage</a>
 </p>
 
+
+
 ## 🛠 Using Skill
 
 <p align='center'>
@@ -23,11 +25,17 @@
 </p>
 
 
+
+
+
 ## 💁‍♂️ Introducing Project
 
 #### 🔎 Check real-time coin exchange rate
 
 > - You can check important coin information and real-time exchange rate
+
+
+
 
 
 ## 🤸‍ How To Use?
@@ -45,11 +53,32 @@ npm start
 npm run build
 ```
 
-#### deploy
 
-Edit the value of "hompage" in package.json that you wanna show your project. then,
 
-```
-npm run deploy
-```
+## 🤸‍ Features
+`/`
+시가총액 순으로 정렬된 암호화폐 목록 표시 
 
+`/:id`
+암호화폐 정보를 표시
+
+`/:id/chart`
+14일치 데이터(시가, 고가, 저가, 종가)를 candlestick 차트로 시각화
+
+`/:id/price`
+14일치 데이터(종가)를 전일대비 퍼센트로 계산하여 표시
+
+
+
+
+## Note
+#### 1. react query
+query key를 바탕으로 데이터를 캐싱하여 관리
+isLoading, data, retch
+
+#### 2. styled-components
+ThemeProvider -> component에서 props로 접근 가능 (styled.d.ts 필수)
+state와 연동하여 theme 변경 -> 라이트/다크 모드 구현
+
+#### 3. react-router-dom
+<Outlet /> -> nested UI 구현
